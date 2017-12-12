@@ -2,6 +2,7 @@ var VideoListView = Backbone.View.extend({
   initialize: function() {
     this.render();
     var thisVideoList = this;
+    thisVideoList.$el.empty();
     _.each(window.exampleVideoData, function(videoObj) {
       var tempVideo = new Video(videoObj);
       var tempVideoListEntery = new VideoListEntryView({model: tempVideo});

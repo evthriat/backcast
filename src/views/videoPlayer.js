@@ -1,12 +1,20 @@
 var VideoPlayerView = Backbone.View.extend({
   initialize: function() {
     this.render();
-    //listen on a change on its collection.
-    //add argument to render to take a video id from the collection.
+    this.collection.on('select', function(e) {
+      this.render(e.cid);
+      console.log(this.collection.get(e.cid));
+
+    }, this);
+
+    this.collection.on('reset', function(event) {
+      this.render();
+    }, this);
   },
 
-  render: function() {
-    this.$el.html(this.template(this.collection.at(0).attributes));
+  render: function(cidTag) {
+    cidTag = cidTag || this.collection.at(0).cid;
+    this.$el.html(this.template(this.collection.get(cidTag).attributes));
     return this;
   },
 
